@@ -1,32 +1,63 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Input, Button } from "react-daisyui";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
+  const { signInUser } = useContext(AuthContext);
+
   const [error, setError] = useState("");
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleLogin = (e) => {
     e.preventDefault();
-    // replace with your own login logic here
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-   
+
+    console.log(email, password);
+
+    signInUser(email, password)
+    .then(result => {
+        const loggedInUser = result.user;
+        console.log(loggedInUser)
+        setError('')
+    })
+    .catch(error => {
+        console.error(error)
+        setError('Invalid Email or Password')
+    })
   };
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="bg-fuchsia-300 p-6 rounded-lg shadow-lg md:w-1/2 md:h-3/4 ">
-        <h2 className="text-lg font-semibold mb-8 text-center mt-12">Login Here</h2>
-        <form onSubmit={handleLogin} className="flex flex-col space-y-4 my-auto items-center">
-          <Input type="email" name="email" placeholder="Email" className="w-full" />
-          <Input type="password" name="password" placeholder="Password" className="w-full" />
+        <h2 className="text-lg font-semibold mb-8 text-center mt-12">
+          Login Here
+        </h2>
+        <form
+          onSubmit={handleLogin}
+          className="flex flex-col space-y-4 my-auto items-center"
+        >
+          <Input
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full"
+            required
+          />
+          <Input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="w-full"
+            onChange={e => setPassword(e.target.value)}
+            required
+          />
           <Button type="submit" className="btn btn-primary w-full">
             Log in
           </Button>
-          {error && (
-            <p className="text-red-700 text-center">{error}</p>
-          )}
+          {error && <p className="text-red-700 text-center">{error}</p>}
         </form>
         <div className="mt-10 text-center">
           <p>Or sign up using</p>
@@ -35,7 +66,7 @@ const Login = () => {
               <FaGithub />
             </Button>
             <Button className="bg-blue-600 border-none btn-circle">
-              <FaGoogle className=""/>
+              <FaGoogle className="" />
             </Button>
           </div>
         </div>
@@ -43,7 +74,7 @@ const Login = () => {
           Don't have an account?{" "}
           <Link
             to="/register"
-            className="text-primary-500 hover:underline font-bold"
+            className="text-red-500 hover:underline font-bold"
           >
             Register
           </Link>

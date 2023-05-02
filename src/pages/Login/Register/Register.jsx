@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Input, Button } from "react-daisyui";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const Register = () => {
+    const { createUser } = useContext(AuthContext)
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +14,17 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+
+    console.log(name, email, password, photoUrl)
+
+    createUser( email, password)
+    .then(result => {
+        const createdUser = result.user;
+        console.log(createdUser);
+    })
+    .catch(err => {
+        console.error(err);
+    })
 
     // Validate input values
     const newErrors = {};
@@ -34,7 +48,7 @@ const Register = () => {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100 ">
-      <div className="bg-fuchsia-300 p-6 rounded-lg shadow-lg md:w-1/2">
+      <div className="bg-fuchsia-200 p-6 rounded-lg shadow-lg md:w-1/2">
         <h2 className="text-lg font-semibold mb-4 text-center">
           Register Here
         </h2>
@@ -51,6 +65,7 @@ const Register = () => {
               placeholder="Enter your name"
               className="input w-full"
               value={name}
+              name="name"
               onChange={(e) => setName(e.target.value)}
             />
           </div>
@@ -63,6 +78,7 @@ const Register = () => {
               placeholder="Enter your photo URL"
               className="input w-full"
               value={photoUrl}
+              name="photoURL"
               onChange={(e) => setPhotoUrl(e.target.value)}
             />
           </div>
@@ -75,6 +91,7 @@ const Register = () => {
               placeholder="Enter your email"
               className="input w-full"
               value={email}
+              name="email"
               onChange={(e) => setEmail(e.target.value)}
             />
             {errors.email && (
@@ -90,6 +107,7 @@ const Register = () => {
               placeholder="Enter your password"
               className="input w-full"
               value={password}
+              name="password"
               onChange={(e) => setPassword(e.target.value)}
             />
             {errors.password && (
@@ -104,7 +122,7 @@ const Register = () => {
             <small>
               Already have an account ? please{" "}
               <Link
-                className="text-primary-500 hover:underline font-bold"
+                className="text-red-500 hover:underline font-bold"
                 to="/login"
               >
                 Login
