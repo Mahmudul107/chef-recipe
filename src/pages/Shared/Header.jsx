@@ -1,24 +1,25 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
     <div>
       <div className="navbar bg-black text-white mx-ato">
         <div className=" mx-auto">
-        <a href="#" className="text-3xl text-white font-bold">Retro<span className="text-yellow-400">Food</span></a>
+        <Link to='/' className="text-3xl text-white font-bold">Retro<span className="text-red-500">Food</span></Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-">
+          <ul className="menu-horizontal px-1 gap-4">
             <li>
-              <a className="text-xl font-extrabold">Home</a>
+              <NavLink to='/' className={({ isActive }) => (isActive ? "active" : "default")}>Home</NavLink>
             </li>
             <li>
-              <a className="text-xl font-extrabold shadow-inner">Blog</a>
+              <NavLink to='/blog' className={({ isActive }) => (isActive ? "active" : "default")}>Blog</NavLink>
             </li>
           </ul>
         </div>
         <div className="mx-auto">
-          <a className="btn">Login</a>
+          <Link to='/login'>Login</Link>
         </div>
       </div>
     </div>
