@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
-  const { signInUser } = useContext(AuthContext);
+  const { signInUser, googleSign } = useContext(AuthContext);
 
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
@@ -27,6 +27,18 @@ const Login = () => {
         setError('Invalid Email or Password')
     })
   };
+  
+
+  const handleGoogleSignIn = () => {
+    googleSign( )
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -65,7 +77,7 @@ const Login = () => {
             <Button className="bg-red-400 border-none btn-circle">
               <FaGithub />
             </Button>
-            <Button className="bg-blue-600 border-none btn-circle">
+            <Button onClick={handleGoogleSignIn} className="bg-blue-600 border-none btn-circle">
               <FaGoogle className="" />
             </Button>
           </div>

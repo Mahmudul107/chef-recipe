@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Input, Button } from "react-daisyui";
-import { Link } from "react-router-dom";
+import { Await, Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 
 const Register = () => {
-    const { createUser } = useContext(AuthContext)
+    const { createUser, updateUserData } = useContext(AuthContext)
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ const Register = () => {
   const [photoUrl, setPhotoUrl] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     console.log(name, email, password, photoUrl)
@@ -25,6 +25,22 @@ const Register = () => {
     .catch(err => {
         console.error(err);
     })
+
+    try {
+        // Create user
+        const result = await createUser(email, password);
+        const createdUser = result.user;
+  
+        // Update user profile
+        await updateUserData(createdUser, {
+          displayName: name,
+          photoURL: photoUrl,
+        });
+        
+        console.log("Registration successful!");
+      } catch (error) {
+        console.error(error);
+      }
 
     // Validate input values
     const newErrors = {};
@@ -67,6 +83,7 @@ const Register = () => {
               value={name}
               name="name"
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </div>
           <div className="form-control">
@@ -80,6 +97,7 @@ const Register = () => {
               value={photoUrl}
               name="photoURL"
               onChange={(e) => setPhotoUrl(e.target.value)}
+              required
             />
           </div>
           <div className="form-control">
@@ -93,6 +111,7 @@ const Register = () => {
               value={email}
               name="email"
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
             {errors.email && (
               <span className="text-red-500 text-xs">{errors.email}</span>
@@ -109,6 +128,7 @@ const Register = () => {
               value={password}
               name="password"
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
             {errors.password && (
               <span className="text-red-500 text-xs mb-12">{errors.password}</span>
