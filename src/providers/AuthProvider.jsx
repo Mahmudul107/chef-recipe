@@ -11,6 +11,7 @@ googleProvider.setCustomParameters({ prompt: 'select_account' });
 googleProvider.addScope('https://www.googleapis.com/auth/userinfo.email');
 
 const githubProvider = new GithubAuthProvider();
+// githubProvider.setCustomParameters({ allow_signup: false, scope: 'user' });
 
 const AuthProvider = ({children}) => {
     const user = null;
@@ -31,8 +32,11 @@ const AuthProvider = ({children}) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    const updateUserData = (user) => {
-        return updateProfile(user)
+    const updateUserData = (user, name, photo) => {
+        return updateProfile(user, {
+            displayName: name,
+            photoURL: photo
+        })
     }
 
     const authInfo = {

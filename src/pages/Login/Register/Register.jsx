@@ -4,45 +4,31 @@ import { Await, Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 
 const Register = () => {
-    const { createUser, updateUserData } = useContext(AuthContext)
+  const { createUser, updateUserData } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   const [errors, setErrors] = useState({});
+  const [isRegistered, setIsRegistered] = useState(false); // state for success message
 
-  const handleRegister = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
 
-    console.log(name, email, password, photoUrl)
+    console.log(name, email, password, photoUrl);
 
-    createUser( email, password)
-    .then(result => {
+    createUser(email, password)
+      .then((result) => {
         const createdUser = result.user;
         console.log(createdUser);
-    })
-    .catch(err => {
+        updateUserData(result.user, name, photoUrl);
+        setIsRegistered(true); // set isRegistered to true if registration is successful
+      })
+      .catch((err) => {
         console.error(err);
-    })
+      });
 
-    try {
-        // Create user
-        const result = await createUser(email, password);
-        const createdUser = result.user;
-  
-        // Update user profile
-        await updateUserData(createdUser, {
-          displayName: name,
-          photoURL: photoUrl,
-        });
-        
-        console.log("Registration successful!");
-      } catch (error) {
-        console.error(error);
-      }
-
-    // Validate input values
     const newErrors = {};
     if (password.length < 6) {
       newErrors.password = "Password must be at least 6 characters";
@@ -53,7 +39,7 @@ const Register = () => {
     if (!password) {
       newErrors.password = "Password cannot be empty";
     }
-    // Display errors if any
+    // Display errors
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -61,6 +47,23 @@ const Register = () => {
 
     // Handle registration logic here
   };
+
+  // Redirect to login form after registration
+  if (isRegistered) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gray-100 ">
+        <div className="bg-fuchsia-200 p-6 rounded-lg shadow-lg md:w-1/2 text-center">
+          <h2 className="text-lg font-semibold mb-4">Registration successful!</h2>
+          <Link
+            className="text-red-500 hover:underline font-bold"
+            to="/login"
+          >
+            Click here to login
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100 ">

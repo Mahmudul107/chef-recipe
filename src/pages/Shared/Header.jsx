@@ -3,16 +3,36 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Button } from "react-daisyui";
 import { FaUser } from "react-icons/fa";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Header = () => {
-  const user = useContext(AuthContext);
+  const { updateUserData } = useContext(AuthContext);
+
+  const renderProfileButton = () => {
+    if (updateUserData) {
+      return (
+        <Button
+          className="border-none btn-circle duration-500 bg-red-600 mr-2"
+          title={updateUserData.displayName}
+        >
+          <img src={updateUserData.photoURL} alt="" />
+        </Button>
+      );
+    } else {
+      return (
+        <Link to="/login" className="text-white hover:text-red-500">
+          Login
+        </Link>
+      );
+    }
+  };
 
   return (
     <div>
       <div className="navbar bg-black text-white mx-ato">
         <div className=" mx-auto">
-          <Link to="/" className="text-3xl text-white font-bold">
-            Retro<span className="text-red-500">Food</span>
+          <Link to="/" className="text-3xl text-white font-bold font-mono">
+            Retro<span className="text-red-500 font-mono">Food</span>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -36,15 +56,11 @@ const Header = () => {
           </ul>
         </div>
         <div className="mx-auto">
-          {user && (
-            <Button className="border-none btn-circle duration-500 bg-red-600 mr-2">
-              <FaUser className="" />
-            </Button>
-          )}
-          {user ? (
-            <Link to="/login">Log Out</Link>
-          ) : (
-            <Link to="/login">Login</Link>
+          {renderProfileButton()}
+          {updateUserData && (
+            <Link to="/logout" className="text-white hover:text-red-500">
+              Logout
+            </Link>
           )}
         </div>
       </div>
