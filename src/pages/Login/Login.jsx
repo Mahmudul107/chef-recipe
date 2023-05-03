@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
-  const { signInUser, googleSign } = useContext(AuthContext);
+  const { signInUser, googleSign, githubSign } = useContext(AuthContext);
 
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
@@ -36,9 +36,22 @@ const Login = () => {
       console.log(user);
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
   }
+
+
+  const handleGithubLogin = () => {
+    githubSign()
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      console.log(error.message);
+    })
+  }
+
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -72,9 +85,9 @@ const Login = () => {
           {error && <p className="text-red-700 text-center">{error}</p>}
         </form>
         <div className="mt-10 text-center">
-          <p>Or sign up using</p>
+          <p>Or try sign up using</p>
           <div className="flex gap-4 justify-center mt-6">
-            <Button className="bg-red-400 border-none btn-circle">
+            <Button onClick={handleGithubLogin} className="bg-red-400 border-none btn-circle">
               <FaGithub />
             </Button>
             <Button onClick={handleGoogleSignIn} className="bg-blue-600 border-none btn-circle">
@@ -83,7 +96,7 @@ const Login = () => {
           </div>
         </div>
         <p className="text-sm mt-4">
-          Don't have an account?{" "}
+          Don't have an account? please{" "}
           <Link
             to="/register"
             className="text-red-500 hover:underline font-bold"

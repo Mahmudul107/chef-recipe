@@ -1,19 +1,26 @@
 import React, { createContext } from 'react';
 import app from '../firebase/firebase.config'
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
 
 export const AuthContext = createContext(null);
 
 const auth = getAuth(app)   
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
-provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
+googleProvider.addScope('https://www.googleapis.com/auth/userinfo.email');
+
+const githubProvider = new GithubAuthProvider();
 
 const AuthProvider = ({children}) => {
     const user = null;
 
     const googleSign = () => {
-        return signInWithPopup(auth, provider)
+        return signInWithPopup(auth, googleProvider)
+    }
+
+    const githubSign = () => {
+        return signInWithPopup(auth, githubProvider)
     }
 
     const createUser = (email, password) => {
@@ -33,6 +40,7 @@ const AuthProvider = ({children}) => {
         createUser,
         signInUser,
         googleSign,
+        githubSign,
         updateUserData
     }
 
