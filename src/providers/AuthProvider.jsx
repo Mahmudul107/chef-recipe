@@ -21,31 +21,46 @@ googleProvider.setCustomParameters({ prompt: "select_account" });
 googleProvider.addScope("https://www.googleapis.com/auth/userinfo.email");
 
 const githubProvider = new GithubAuthProvider();
-// githubProvider.setCustomParameters({ allow_signup: false, scope: 'user' });
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+
+//   Google sign In 
   const googleSign = () => {
     return signInWithPopup(auth, googleProvider);
   };
 
+
+//   Github sign in
   const githubSign = () => {
     return signInWithPopup(auth, githubProvider);
   };
 
+
+//   Create a user account
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
+
+//   Signed in user
   const signInUser = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+
+//   Logout user
   const logOutUser = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
+
+// Get users profile
   const updateUserData = (user, name, photo) => {
     return updateProfile(user, {
       displayName: name,
@@ -56,6 +71,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (loggedInUser) => {
       setUser(loggedInUser);
+      setLoading(false);
     });
 
     return () => {
@@ -65,6 +81,7 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     user,
+    loading,
     createUser,
     signInUser,
     logOutUser,

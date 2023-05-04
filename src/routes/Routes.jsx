@@ -6,6 +6,7 @@ import Blog from "../pages/Blog/Blog";
 import Register from "../pages/Login/Register/Register";
 import ViewRecipes from "../pages/ViewRecipes/ViewRecipes";
 import PrivateRoute from "./PrivateRoute.jsx/PrivateRoute";
+import LoadingSpinner from "../providers/LoadingSpinner/LoadingSpinner";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,11 @@ const router = createBrowserRouter([
             <ViewRecipes />
           </PrivateRoute>
         ),
-      },
+    },
+    {
+        path: '/loading',
+        element: <LoadingSpinner />,
+    }
     ],
   },
 ]);
