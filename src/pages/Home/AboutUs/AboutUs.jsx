@@ -3,7 +3,7 @@ import React from "react";
 const AboutUs = () => {
   return (
     <div className="bg-white rounded-lg shadow-lg">
-      <h1 className="text-5xl text-center font-bold mb-16 text-transparent bg-gradient-to-r from-purple-400 to-red-700 bg-clip-text">
+      <h1 className="text-5xl text-center font-bold font-serif mb-16 text-transparent bg-gradient-to-r from-purple-400 to-red-700 bg-clip-text">
         What Peoples Say About Us
       </h1>
       <div className="carousel relative w-full">

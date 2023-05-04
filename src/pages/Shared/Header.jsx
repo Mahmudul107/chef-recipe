@@ -2,20 +2,18 @@ import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Button } from "react-daisyui";
-import { FaUser } from "react-icons/fa";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const Header = () => {
-  const { updateUserData } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const renderProfileButton = () => {
-    if (updateUserData) {
+    if (user) {
       return (
         <Button
           className="border-none btn-circle duration-500 bg-red-600 mr-2"
-          title={updateUserData.displayName}
+          title={user.displayName}
         >
-          <img src={updateUserData.photoURL} alt="" />
+          <img className="rounded-full" src={user.photoURL} alt="" />
         </Button>
       );
     } else {
@@ -57,7 +55,7 @@ const Header = () => {
         </div>
         <div className="mx-auto">
           {renderProfileButton()}
-          {updateUserData && (
+          {user && (
             <Link to="/logout" className="text-white hover:text-red-500">
               Logout
             </Link>

@@ -37,12 +37,12 @@ const Home = () => {
         </div>
       </div>
       <div className="mt-24 px-8 rounded-t-lg">
-        <p className="text-5xl text-center font-bold mb-4 text-transparent bg-gradient-to-r from-purple-400 to-red-700 bg-clip-text">
+        <p className="text-5xl text-center font-bold font-serif mb-4 text-transparent bg-gradient-to-r from-purple-400 to-red-700 bg-clip-text">
           The culinary artists behind our mouth-watering dishes
         </p>
       </div>
       <div className="rounded-b-lg my-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 sm:mx-4 md:mx-8 lg:mx-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-3 gap-4 sm:mx-4 md:mx-8 lg:mx-12">
           {chefs.map((chef) => (
             <Chefs key={chef.id} chef={chef} />
           ))}
