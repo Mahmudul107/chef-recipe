@@ -12,7 +12,6 @@ const Home = () => {
       .then((res) => res.json())
       .then((data) => setChefs(data));
   }, []);
-  console.log(chefs);
 
   return (
     <div>

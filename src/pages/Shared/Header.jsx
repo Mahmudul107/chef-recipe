@@ -2,18 +2,33 @@ import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Button } from "react-daisyui";
+import { FaUser } from "react-icons/fa";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOutUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logOutUser()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const renderProfileButton = () => {
     if (user) {
       return (
         <Button
-          className="border-none btn-circle duration-500 bg-red-600 mr-2"
+          className="border-none btn-circle duration-500 mr-2"
           title={user.displayName}
         >
-          <img className="rounded-full" src={user.photoURL} alt="" />
+          {user?.photoURL ? (
+            <img className="rounded-full" src={user.photoURL} alt="" />
+          ) : (
+            <FaUser />
+          )}
         </Button>
       );
     } else {
@@ -56,7 +71,11 @@ const Header = () => {
         <div className="mx-auto">
           {renderProfileButton()}
           {user && (
-            <Link to="/logout" className="text-white hover:text-red-500">
+            <Link
+              onClick={handleLogout}
+              to="/login"
+              className="text-white hover:text-red-500"
+            >
               Logout
             </Link>
           )}
