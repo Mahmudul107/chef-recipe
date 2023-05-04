@@ -3,6 +3,7 @@ import bg from "../.././assets/foodbg.jpg";
 import Chefs from "./Chefs/Chefs";
 import Features from "./Features/Features";
 import AboutUs from "./AboutUs/AboutUs";
+import LazyLoad from "react-lazy-load";
 
 const Home = () => {
   const [chefs, setChefs] = useState([]);
@@ -16,10 +17,17 @@ const Home = () => {
   return (
     <div>
       <div className="relative">
-        <div
-          className="absolute inset-0 bg-cover bg-center h-screen"
-          style={{ backgroundImage: `url(${bg})` }}
-        ></div>
+        <LazyLoad
+          height={200}
+          offset={100}
+          threshold={0.95}
+          placeholder={<div>Loading...</div>}
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center h-screen"
+            style={{ backgroundImage: `url(${bg})` }}
+          ></div>
+        </LazyLoad>
         <div className="relative z-10 flex items-center justify-end min-h-screen px-4 sm:px-8 lg:px-16">
           <div className="text-white text-right max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl">
             <h1 className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl font-sans font-semibold mb-6 text-red-500 animate-pulse bg-gradient-to-r bg-clip-text text-transparent from-red-200 to-red-600">
