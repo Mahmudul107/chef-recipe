@@ -58,7 +58,7 @@ const Home = () => {
       <div className="my-16">
         <Features />
       </div>
-      <div>
+      <div className="my-32">
         <AboutUs />
       </div>
     </div>

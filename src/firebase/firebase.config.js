@@ -4,13 +4,14 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+console.log(import.meta.env.VITE_apiKey)
 const firebaseConfig = {
-  apiKey: "AIzaSyBVL67oRkH46qEldckGPRsLbYCJptoH-qY",
-  authDomain: "chef-recipe-hunting.firebaseapp.com",
-  projectId: "chef-recipe-hunting",
-  storageBucket: "chef-recipe-hunting.appspot.com",
-  messagingSenderId: "864717233354",
-  appId: "1:864717233354:web:9ae7f1263a8d330fad6833"
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_PROJECTID,
+  storageBucket: import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_APPID
 };
 
 // Initialize Firebase

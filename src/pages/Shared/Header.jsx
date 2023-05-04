@@ -33,7 +33,10 @@ const Header = () => {
       );
     } else {
       return (
-        <Link to="/login" className="text-white hover:text-red-500">
+        <Link
+          to="/login"
+          className="bg-red-600 hover:bg-red-400 duration-700 ml-2 text-white font-bold py-2 px-4 rounded-3xl"
+        >
           Login
         </Link>
       );
@@ -73,7 +76,7 @@ const Header = () => {
           {user && (
             <Link
               onClick={handleLogout}
-              className="text-white hover:text-red-500"
+              className="bg-red-600 hover:bg-red-400 duration-700 ml-2 text-white font-bold py-2 px-4 rounded-3xl"
             >
               Logout
             </Link>
