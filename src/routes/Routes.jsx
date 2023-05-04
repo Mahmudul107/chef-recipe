@@ -7,11 +7,13 @@ import Register from "../pages/Login/Register/Register";
 import ViewRecipes from "../pages/ViewRecipes/ViewRecipes";
 import PrivateRoute from "./PrivateRoute.jsx/PrivateRoute";
 import LoadingSpinner from "../providers/LoadingSpinner/LoadingSpinner";
+import ErrorPage from "../providers/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: "/",
