@@ -18,9 +18,8 @@ const Home = () => {
     <div>
       <div className="relative">
         <LazyLoad
-          height={200}
           offset={100}
-          threshold={0.95}
+          threshold={0.50}
           placeholder={<div>Loading...</div>}
         >
           <div

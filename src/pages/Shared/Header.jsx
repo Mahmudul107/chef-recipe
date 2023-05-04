@@ -53,7 +53,7 @@ const Header = () => {
             <li>
               <NavLink
                 to="/"
-                className={({ isActive }) => (isActive ? "active" : "default")}
+                className={({ isActive }) => (isActive ? "active" : "")}
               >
                 Home
               </NavLink>
@@ -61,7 +61,7 @@ const Header = () => {
             <li>
               <NavLink
                 to="/blog"
-                className={({ isActive }) => (isActive ? "active" : "default")}
+                className={({ isActive }) => (isActive ? "active" : "")}
               >
                 Blog
               </NavLink>
@@ -73,7 +73,6 @@ const Header = () => {
           {user && (
             <Link
               onClick={handleLogout}
-              to="/login"
               className="text-white hover:text-red-500"
             >
               Logout

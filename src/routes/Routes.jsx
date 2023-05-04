@@ -4,16 +4,16 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Blog from "../pages/Blog/Blog";
 import Register from "../pages/Login/Register/Register";
-import ViewRecipes from "../pages/ViewRecipes/ViewRecipes";
 import PrivateRoute from "./PrivateRoute.jsx/PrivateRoute";
 import LoadingSpinner from "../providers/LoadingSpinner/LoadingSpinner";
 import ErrorPage from "../providers/ErrorPage/ErrorPage";
+import RecipeDetails from "../pages/RecipeDetails/RecipeDetails";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    errorElement: <ErrorPage/>,
+    // errorElement: <ErrorPage/>,
     children: [
       {
         path: "/",
@@ -32,12 +32,13 @@ const router = createBrowserRouter([
         element: <Blog />,
       },
       {
-        path: "/viewRecipes",
+        path: "/recipeDetails/:id",
         element: (
           <PrivateRoute>
-            <ViewRecipes />
+            <RecipeDetails/>
           </PrivateRoute>
         ),
+        loader: ({params})=> fetch (`http://localhost:5000/recipeDetails/${params.id}`)
     },
     {
         path: '/loading',
