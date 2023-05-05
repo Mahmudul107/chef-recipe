@@ -15,7 +15,7 @@ const Chefs = ({ chef }) => {
   // console.log(chef);
 
   return (
-    <div className="max-w-xs rounded overflow-hidden shadow-lg m-4 bg-gray-200 hover:bg-red-200 duration-500">
+    <div className="max-w-xs rounded overflow-hidden shadow-lg m-4  hover:bg-red-200 duration-500">
       <LazyLoad height={230} offset={100} threshold={1} placeholder={<div>Loading...</div>}>
         <img className="w-full" src={chef_picture} alt={chef_name} onError={(e) => e.target.src = 'default-image.jpg'} />
       </LazyLoad>
