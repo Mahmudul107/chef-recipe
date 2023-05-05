@@ -3,12 +3,21 @@ import { Document, Page, Text, PDFViewer } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
 
 const Blog = () => {
+  const [loaded, setLoader] = useState(false)
+
+  const downloadPDF = () => {
+    
+  }
  
 
   return (
     <div>
       <div className="sm:w-full md:w-10/12 lg:w-9/12 mx-auto mb-12">
-
+          <button onClick={downloadPDF} disabled={!loaded === false} className="btn">
+            {loaded?(
+              <span>Downloading</span>
+            ):(Downloaded)}
+          </button>
 
       <h1 className="text-5xl font-semibold m-10 text-center sm:text-left">
 
