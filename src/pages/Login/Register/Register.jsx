@@ -45,7 +45,6 @@ const Register = () => {
       return;
     }
 
-    // Handle registration logic here
   };
 
   // Redirect to login form after registration

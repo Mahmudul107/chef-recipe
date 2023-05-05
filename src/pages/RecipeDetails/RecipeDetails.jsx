@@ -20,6 +20,8 @@ const RecipeDetails = () => {
   } = useLoaderData();
   const [favorite, setFavorite] = useState(false);
 
+
+  // Handle favorite button click
   const handleFavorite = () => {
     setFavorite(true);
     toast.success("Recipe added to favorites!", {
