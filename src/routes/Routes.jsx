@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    // errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: "/",
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
             <RecipeDetails/>
           </PrivateRoute>
         ),
-        loader: ({params})=> fetch (`http://localhost:5000/recipeDetails/${params.id}`)
+        loader: ({params})=> fetch (`https://chef-recipe-hunting-server-mahmudul107.vercel.app/recipeDetails/${params.id}`)
     },
     {
         path: '/loading',
