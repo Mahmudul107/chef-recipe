@@ -6,7 +6,7 @@ const Blog = () => {
   const ref = React.createRef();
 
   return (
-    <div>
+    <div className="bg-gray-200">
       <Pdf targetRef={ref} filename="Blog-page.pdf">
         {({ toPdf }) => (
           <div className="flex justify-end mt-6 mr-6">
