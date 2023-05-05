@@ -7,7 +7,7 @@ const JapaneseFoodCard = () => {
         Our Foodsome Blog 
       </h1>
       <div className="max-w-md mx-auto mb-12 hover:bg-red-200 duration-500 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-        <div className="md:flex">
+        <div className="md:flex gap-4">
           <div className="md:flex-shrink-0">
             <img
               className="h-48 w-full object-cover md:w-48"
