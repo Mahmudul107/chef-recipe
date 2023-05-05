@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { Button } from "react-daisyui";
-import { FaUser } from "react-icons/fa";
+import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 
 const Header = () => {
   const { user, logOutUser } = useContext(AuthContext);
+  const [showMenu, setShowMenu] = useState(false);
 
   const handleLogout = () => {
     logOutUser()
@@ -46,17 +47,32 @@ const Header = () => {
   return (
     <div>
       <div className="navbar bg-black text-white mx-ato">
-        <div className=" mx-auto">
-          <Link to="/" className="text-3xl text-white font-bold font-mono">
-            Retro<span className="text-red-500 font-mono">Food</span>
-          </Link>
+        <div className=" mx-auto flex items-center justify-between">
+          <div>
+            <Link to="/" className="text-3xl text-white font-bold font-mono">
+              Retro<span className="text-red-500 font-mono">Food</span>
+            </Link>
+          </div>
+          <div className="lg:hidden">
+            <button
+              className="navbar-toggler flex items-center focus:outline-none"
+              onClick={() => setShowMenu(!showMenu)}
+            >
+              {showMenu ? <FaTimes /> : <FaBars />}
+            </button>
+          </div>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div
+          className={`${
+            showMenu ? "block" : "hidden"
+          } lg:flex navbar-center`}
+        >
           <ul className="menu-horizontal px-1 gap-4">
             <li>
               <NavLink
                 to="/"
                 className={({ isActive }) => (isActive ? "active" : "")}
+                onClick={() => setShowMenu(false)}
               >
                 Home
               </NavLink>
@@ -65,13 +81,14 @@ const Header = () => {
               <NavLink
                 to="/blog"
                 className={({ isActive }) => (isActive ? "active" : "")}
+                onClick={() => setShowMenu(false)}
               >
                 Blog
               </NavLink>
             </li>
           </ul>
         </div>
-        <div className="mx-auto">
+        <div className="mx-auto flex items-center">
           {renderProfileButton()}
           {user && (
             <Link
