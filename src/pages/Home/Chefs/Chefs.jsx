@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LazyLoad from "react-lazy-load";
 import { Link } from "react-router-dom";
-import { FaBeer, FaThumbsUp } from "react-icons/fa";
+import { FaThumbsUp } from "react-icons/fa";
 
 const Chefs = ({ chef }) => {
   const {
