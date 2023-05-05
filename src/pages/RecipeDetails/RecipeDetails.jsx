@@ -18,16 +18,21 @@ const RecipeDetails = () => {
     bio,
     recipes,
   } = useLoaderData();
-  const [favorite, setFavorite] = useState(false);
+
+  const [favorites, setFavorites] = useState(Array(recipes.length).fill(false));
+
 
 
   // Handle favorite button click
-  const handleFavorite = () => {
-    setFavorite(true);
+  const handleFavorite = (index) => {
+    const newFavorites = [...favorites];
+    newFavorites[index] = true;
+    setFavorites(newFavorites);
     toast.success("Recipe added to favorites!", {
       position: toast.POSITION.TOP_RIGHT,
     });
   };
+  
 
   return (
     <div className="container mx-auto py-28">
@@ -69,38 +74,44 @@ const RecipeDetails = () => {
           </Link>
         </div>
         <div className="md:col-span-2">
-          {recipes &&
-            recipes?.map((recipe, index) => (
-              <div
-                key={index}
-                className=" bg-red-100 hover:bg-red-200 duration-1000 rounded-lg shadow-md p-5 mt-5 w-5/6"
-              >
-                <h3 className="text-xl font-bold mb-3">{recipe.recipe_name}</h3>
-                <p className="text-gray-500 mb-3">
-                  <span className="font-bold text-sm">Ingredients : </span>
-                  {recipe.ingredients.join(", ")}
-                </p>
-                <p className="mb-3"><span className="font-bold text-sm text-gray-500">Recipe Method : </span> {recipe.cooking_method}</p>
-                <div className="flex items-center gap-2">
-                  <Rating
-                    style={{ maxWidth: 110 }}
-                    value={recipe?.rating}
-                    readOnly
-                  />
-                  <span className="text-lg font-bold">{recipe.rating}</span>
-                  <span className="text-gray-500"> ratings</span>
-                </div>
-                <button
-                  className={`bg-red-400 hover:bg-red-700 duration-700 text-white font-bold px-3 py-1 rounded-md mt-3 ${
-                    favorite ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
-                  onClick={handleFavorite}
-                  disabled={favorite}
-                >
-                  Favorite
-                </button>
-              </div>
-            ))}
+        {recipes &&
+  recipes.map((recipe, index) => (
+    <div
+      key={index}
+      className=" bg-red-100 hover:bg-red-200 duration-1000 rounded-lg shadow-md p-5 mt-5 w-5/6"
+    >
+      <h3 className="text-xl font-bold mb-3">{recipe.recipe_name}</h3>
+      <p className="text-gray-500 mb-3">
+        <span className="font-bold text-sm">Ingredients : </span>
+        {recipe.ingredients.join(", ")}
+      </p>
+      <p className="mb-3">
+        <span className="font-bold text-sm text-gray-500">
+          Recipe Method :{" "}
+        </span>{" "}
+        {recipe.cooking_method}
+      </p>
+      <div className="flex items-center gap-2">
+        <Rating
+          style={{ maxWidth: 110 }}
+          value={recipe?.rating}
+          readOnly
+        />
+        <span className="text-lg font-bold">{recipe.rating}</span>
+        <span className="text-gray-500"> ratings</span>
+      </div>
+      <button
+        className={`bg-red-400 hover:bg-red-700 duration-700 text-white font-bold px-3 py-1 rounded-md mt-3 ${
+          favorites[index] ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+        onClick={() => handleFavorite(index)}
+        disabled={favorites[index]}
+      >
+        Favorite
+      </button>
+    </div>
+  ))}
+
         </div>
       </div>
       <ToastContainer />

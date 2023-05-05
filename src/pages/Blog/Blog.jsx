@@ -1,6 +1,6 @@
 import React from "react";
 import Pdf from "react-to-pdf";
-import { FaDownload, FaThumbsUp } from "react-icons/fa";
+import { FaDownload } from "react-icons/fa";
 
 const Blog = () => {
   const ref = React.createRef();
